@@ -1,1 +1,1 @@
-# Meals_Rater_API_Django
+# Perfume_Rater_API_Django
