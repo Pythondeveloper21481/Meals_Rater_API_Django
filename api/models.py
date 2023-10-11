@@ -7,6 +7,25 @@ class Perfume(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=360)
 
+    def no_of_ratings(self):
+        ratings = Rating.objects.filter(perfume=self)
+        return len(ratings)
+    
+    def avg_rating(self):
+        # sum of ratings stars  / len of rating hopw many ratings 
+        sum = 0
+        ratings = Rating.objects.filter(perfume=self) # no of ratings happened to the meal 
+
+        for x in ratings:
+            sum += x.stars
+
+        if len(ratings) > 0:
+            return sum / len(ratings)
+        else:
+            return 0
+
+
+
     def __str__(self):
         return self.title
 
