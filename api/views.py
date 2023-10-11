@@ -20,14 +20,14 @@ class PerfumeViewSet(viewsets.ModelViewSet):
             '''
             create or update 
             '''
-            Perfume = Perfume.objects.get(id=pk)
+            perfume = Perfume.objects.get(id=pk)
             stars = request.data['stars']
             username = request.data['username']
             user = User.objects.get(username=username)
 
             try:
                 # update
-                rating = Rating.objects.get(user=user.id, meal=meal.id) # specific rate 
+                rating = Rating.objects.get(user=user.id, perfume=perfume.id) # specific rate 
                 rating.stars = stars
                 rating.save()
                 serializer = RatingSerializer(rating, many=False)
@@ -39,7 +39,7 @@ class PerfumeViewSet(viewsets.ModelViewSet):
 
             except:
                 # create if the rate not exist 
-                rating = Rating.objects.create(stars=stars, meal=meal, user=user)
+                rating = Rating.objects.create(stars=stars, perfume=perfume, user=user)
                 serializer = RatingSerializer(rating, many=False)
                 json = {
                     'message': 'Perfume Rate Created',
